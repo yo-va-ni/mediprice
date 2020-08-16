@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/LogoTIS.PNG">
+    <link rel="stylesheet" href="css/pastilla.css">
+    <link rel="stylesheet" href="css/detalle.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300;1,400&display=swap" rel="stylesheet">
+    <title>MediPrice</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
+        <a class="navbar-brand" href="home.html">
+            <img src="src/Logo_sin_fonfo.png" width="80" height="80" alt="" loading="lazy">
+        </a>
+        <a class="navbar-brand" href="http://www.digemid.minsa.gob.pe/">DIGEMID</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="receta.html">COTIZACION</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="About.html">ACERCA DE NOSOTROS</a>
+            </li>
+            <li class="nav-item" id="logout">
+              <a class="nav-link" href="">SALIR</a>
+            </li>
+          </ul>
+        </div>
+    </nav>  
+    <section class="distance-format">
+        <div class="distance-container">
+            <div class="item subitem_1">PARACETAMOL</div>
+            <div class="item subitem_2">RADIO DE BUSQUEDA</div>
+            <div class="item subitem_3"><a href="home.html">VOLVER</a></div>
+            <div class="item subitem_4">
+                <input type="range">
+            </div>
+            <div class="item subitem_5">
+                <a href="home.html">
+
+                    <img style="height: 20px;" src="images/back.png ">
+                </a>
+            </div>
+            <div class="item subitem_6">
+                <img src="images/distance.png" alt="">
+            </div>
+            <div class="item subitem_7">SELECCIONADO:BOTICA MIFARMA</div>
+            <div class="item subitem_8">PRECIO</div>
+            <div class="item subitem_9">S/. 0.30</div>
+            <div class="item subitem_10">PRECIO ANTERIOR</div>
+            <div class="item subitem_11">S/. 0.50</div>
+            <div class="item subitem_12">DIRECCION</div>
+            <div class="item subitem_13">AV.PROCERES DE LA INDEPENDENCIA 2301-2301-A</div>
+            <div class="item subitem_14">DISTANCIA</div>
+            <div class="item subitem_15">2.5 Km </div>
+            <div class="item subitem_16">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Agregar a carrito
+              </button>
+            </div>
+            <div class="item subitem_17">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Valorar
+              </button>
+            </div>
+
+
+
+            
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                
+                <div class="modal-content modal-custom">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">SELECCIONADO: <span>BOTICA MIFARMA</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body bill-container">
+                    <div class="val_item item_title val_subitem_1">PRECIO </div>
+                    <div class="val_item val_subitem_2">S/. 0.30</div>
+                    <div class="val_item item_title val_subitem_3">PRECIO ANTERIOR</div>
+                    <div class="val_item val_subitem_4">S/. 0.50</div>
+                    <div class="val_item item_title val_subitem_5">DIRECCION</div>
+                    <div class="val_item val_subitem_6">AV. PROCERES DE LA INDEPENDECIA 2301-2301 -A</div>
+                    <div class="val_item item_title val_subitem_7">DISTANCIA</div>
+                    <div class="val_item val_subitem_8">2.5 Km</div>
+                    <div class="val_item item_title val_subitem_9">CONFORME</div>
+                    <div class="val_item val_subitem_10">
+                        <label><input type="radio" name="value1" value="si">SI</label>
+                        <label><input type="radio" name="value1" value="no">NO</label>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+                    <button id="valoracion" type="button" class="btn btn-primary">VALORAR</button>
+                  </div>
+                </div>
+
+                
+              </div>
+            </div>
+
+
+
+        </div>
+    </section>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
+
+    <!-- SDK FIREBASE -->
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
+
+    <script src="./js/mapa.js"></script>
+</body>
+</html>

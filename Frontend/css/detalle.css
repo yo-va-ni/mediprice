@@ -1,0 +1,94 @@
+
+.modal-custom{
+    width: 50vw;
+}
+
+
+.bill-container{
+    display: grid;
+    margin-top: 70px;
+    height: 500px;
+    width: 100%;
+    
+    grid-template-areas: " subitem_1         subitem_2"
+                            "subitem_3   subitem_4"
+                            "subitem_5   subitem_6"
+                            "subitem_7   subitem_8"
+                            "subitem_9    subitem_10";
+}
+
+.val_item{
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:#f8f8f8;
+    padding: 0.5rem;
+}
+.val_subitem_1{
+    grid-area: subitem_1;
+    
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.val_subitem_2{
+    grid-area: subitem_2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.val_subitem_3{
+    grid-area: subitem_3;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.val_subitem_4{
+    grid-area: subitem_4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.val_subitem_5{
+    grid-area: subitem_5;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.val_subitem_6{
+    grid-area: subitem_6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.val_subitem_7{
+    grid-area: subitem_7;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.val_subitem_8{
+    grid-area: subitem_8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.val_subitem_9{
+    grid-area: subitem_9;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.val_subitem_10{
+    grid-area: subitem_10;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+.item_title{
+    background-color: #3758c5;
+    color: white;
+    padding: 0.5rem;
+}

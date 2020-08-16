@@ -1,0 +1,215 @@
+body{
+    margin: 0;
+    padding: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+a{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+}
+h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    
+}
+h2{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+}
+header a{
+    text-decoration: none;
+    color:#26518d;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+}
+header{
+    width: 100%;
+    display: grid;
+}
+.icon-container .name{
+    text-align:initial;
+}
+.icon-container .receta{
+    text-align:center;
+    justify-content: center;
+}
+.icon-container .logo{
+    justify-content: center;
+}
+.icon-container .logo img{
+    height: 70px;
+}
+header .header-icon{
+    display: grid;
+    height: 70px;
+    background-color: black;
+}
+.image-back img{
+    height: 40px   ;
+}
+.image-back{
+    text-align:  initial;
+}
+.return{
+    text-align: end ;
+}
+.icon-container{
+    display: grid;
+    align-items: center;
+    text-align: center;
+    grid-column-gap: 10px;
+    grid-template-columns: 1fr 1fr 3fr 1fr 1fr;
+    grid-template-areas:  "logo    dig    .    receta    about";
+}
+.logo{
+    grid-area: logo;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.name{
+    grid-area: dig;
+    text-align: center;
+}
+.receta{
+    grid-area: receta;
+    display: flex;
+    text-align: center;
+}
+.about {
+    grid-area: about;
+    display: flex;
+    text-align: center;
+}
+.osas-container{
+    display: grid;
+    margin-top: 25px;
+    align-items: center;
+    text-align: center;
+    grid-column-gap: 10px;
+    grid-template-columns: 1fr 1fr 3fr 1fr 1fr 1fr;
+    grid-template-areas:  ".  coti   .  return  img   .";
+}
+.coti{
+    grid-area: coti;
+}
+.return{
+    grid-area: return;
+}
+.image-back{
+    grid-area: img;
+}
+.details-container{
+    margin-left: 100px;
+    margin-right:100px;
+    height: 350px;
+    align-items: center;
+    text-align:center;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr  ;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 50px;
+    grid-template-areas: "registro prodcut distancia cantidad  price_u price   .  "
+                          "cod name long amount precio_uni precio_t   imagen1"
+                          "cod1 name1 long1 amount1 precio_uni1 precio_t1    imagen2"
+                          " .     .     .      .       total      valor       .  ";
+}
+.registro{
+    grid-area: registro;
+    background: blue;
+    color: white;
+}
+.product{
+    grid-area: prodcut;
+    background: blue;
+    color: white;
+
+}
+.distancia{
+    grid-area: distancia;
+    background: blue;
+    color: white;
+}
+.cantidad{
+    grid-area: cantidad;
+    background: blue;
+    color: white;
+}
+.price_u{
+    grid-area: price_u;
+    background: blue;
+    color: white;
+}
+.price{
+    grid-area: price;
+    background: blue;
+    color: white;
+}
+.cod{
+    grid-area: cod;
+   
+}
+.namea{
+    grid-area: name;
+  
+}
+.long{
+    grid-area: long;
+}
+.amount{
+    grid-area: amount;
+}
+.precio_uni{
+    grid-area:precio_uni ;
+}
+.precio_t{
+    grid-area: precio_t;
+}
+.cod1{
+    grid-area: cod1;
+}
+.name1{
+    grid-area: name1;
+}
+.long1{
+    grid-area: long1;
+}
+.amount1{
+    grid-area: amount1;
+}
+.precio_uni1{
+    grid-area: precio_uni1;
+}
+.precio_t1{
+    grid-area: precio_t1;
+}
+
+.delete1 img{
+    height: 20px;
+}
+.delete2 img{
+    height: 20px;
+}
+.delete1{
+    grid-area: imagen1;
+}
+.delete2{
+    grid-area: imagen2;
+}
+.total{
+    grid-area: total;
+    background:blue;
+    border: 1px solid black;
+    color: white;
+    border-radius: 10px;
+
+}
+.valor_t{
+    grid-area: valor;
+    background:blue;
+    border: 1px solid black;
+    border-radius: 10px;
+    color: white;
+
+}

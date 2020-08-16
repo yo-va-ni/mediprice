@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/LogoTIS.PNG">
+    <title>Mediprice</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
+        <a class="navbar-brand" href="index.html">
+            <img src="src/Logo_sin_fonfo.png" width="80" height="80" alt="" loading="lazy">
+        </a>
+        <a class="navbar-brand" href="#">DIGEMID</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item" id = "cotizacion">
+              <a class="nav-link" href="receta.html">COTIZACION <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#">ACERCA DE NOSOTROS</a>
+            </li>
+            <li class="nav-item logged-in">
+              <a class="nav-link" id="logout" style="display :none;">SALIR</a>
+            </li>
+          </ul>
+        </div>
+    </nav>
+    
+    <div class="container py-5">
+      <div class="card mb-3" style="max-width: full;">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <img src="src/Logo_sin_fonfo.png" class="card-img" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Acerca de Nosotros</h5>
+              <p class="card-text" style="font-size: large;">Mediprice es una aplicación Web que permite al usuario realizar la búsqueda de medicamentos cerca de su zona, de este modo poder comparar precios de distintos establecimiento farmaceuticos, con el fin de ahorrar en lo posible el tiempo de realizar la búsqueda de establecimiento en establecimiento.
+  
+                <br>
+                El diseño de la interfaz ha sido desarrollado para que el usuario pueda hacer uso de ésta de manera intuitiva y no le origine problemas, permitiendole, entre otras características, realizar valoración de un establecimiento respecto al precio, así como observar la variación de estos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
+    <script src="./js/about.js"></script>
+</body>
+</html>

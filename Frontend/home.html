@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/LogoTIS.PNG">
+    <title>MediPrice</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
+        <a class="navbar-brand" href="#">
+            <img src="src/Logo_sin_fonfo.png" width="80" height="80" alt="" loading="lazy">
+        </a>
+        <a class="navbar-brand" href="#">DIGEMID</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="receta.html">COTIZACION <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="About.html">ACERCA DE NOSOTROS</a>
+            </li>
+            <li class="nav-item" id="logout">
+              <a class="nav-link" href="">SALIR</a>
+            </li>
+          </ul>
+        </div>
+    </nav>
+
+    <div class="search-bar">
+      <div class="search-bar-content">
+
+        <p>Ingresa el nombre del medicamento</p>
+        <form class="search-form">
+          <input type="text" class="form-control" placeholder="Ejm: Paracetamol"  aria-describedby="button-addon2">
+          <button class="btn btn-outline-warning " type="submit">Buscar</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="search-filter">
+
+        <div class="filter-group filter-location">
+          <div class="title-filter">Filtro por ubicacion</div>
+          <div class="location-levels">
+            
+            <div class="location-level">
+              <div>Departamento</div>
+              <select class="custom-select" id="buscar_dep">
+                <option selected>Seleccione uno</option>
+                <option value="1">One</option>
+              </select>
+            </div>
+
+            <div class="location-level">
+              <div>Provincia</div>
+              <select class="custom-select" id="buscar_prov">
+                <option selected>Seleccione uno</option>
+                <option value="1">One</option>
+              </select>
+            </div>
+
+            <div class="location-level">
+              <div>Distrito</div>
+              <select class="custom-select" id="buscar_dis">
+                <option selected>Seleccione uno</option>
+                <option value="1">One</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="filter-group filter-place">
+          <div class="title-filter">Filtro por tipo de establecimiento</div>
+          <div class="place-catgeories">
+            
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="radio-todos" name="tipo-place" class="custom-control-input">
+              <label class="custom-control-label" for="radio-todos">Todos</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="radio-publico" name="tipo-place" class="custom-control-input">
+              <label class="custom-control-label" for="radio-publico">Publico</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="radio-privado" name="tipo-place" class="custom-control-input">
+              <label class="custom-control-label" for="radio-privado">Privado</label>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="filter-group filter-botique">
+          <div class="title-filter">Filtro farmacia/botica</div>
+          <div>
+            <input type="email" class="form-control" id="botique" aria-describedby="emailHelp">
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <button type="button" class="btn btn-outline-success  btn-block">Aplicar filtros</button>
+        </div>
+
+      </div>
+
+      <div class="search-data">
+        
+        <div class="data-items">
+
+          <div class="accordion" id="accordionData">
+            <div class="card">
+              <div class="card-header card-custom">
+                <h2 class="mb-0">
+                  <button class="btn btn-link btn-block text-left" id="r-111111" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    PARACETAMOL
+                  </button>
+                </h2>
+
+                <div class="link-mapa"> 
+                  <a href="#">VER MAPA</a> 
+                </div>
+              </div>
+          
+              <div id="111111" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="data-details">
+                  <table class="table table-custom">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col" class="col_1">Nombre</th>
+                        <th scope="col" class="col_2">Nombre Gen.</th>
+                        <th scope="col" class="col_3">Presentacion</th>
+                        <th scope="col" class="col_4">Fabricante</th>
+                        <th scope="col" class="col_5">Reg. Sanitario</th>
+                        <th scope="col" class="col_6">Sucursal</th>
+                        <th scope="col" class="col_7">Precio</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td  class="col_1">PARACETAMOL</td>
+                        <td  class="col_2">PARACETAMOL</td>
+                        <td  class="col_3">500mg TABLETA</td>
+                        <td  class="col_4">QUIMICA SUIZA SA</td>
+                        <td  class="col_5">E14831</td>
+                        <td  class="col_6">INKAFARMA</td>
+                        <td  class="col_7">S/ 38.71</td>
+                      </tr>
+                      <tr>
+                        <td  class="col_1">PARACETAMOL</td>
+                        <td  class="col_2">PARACETAMOL</td>
+                        <td  class="col_3">500mg TABLETA</td>
+                        <td  class="col_4">QUIMICA SUIZA SA</td>
+                        <td  class="col_5">E14831</td>
+                        <td  class="col_6">INKAFARMA</td>
+                        <td  class="col_7">S/ 25.20</td>
+                      </tr>
+                      <tr>
+                        <td  class="col_1">PARACETAMOL</td>
+                        <td  class="col_2">PARACETAMOL</td>
+                        <td  class="col_3">500mg TABLETA</td>
+                        <td  class="col_4">QUIMICA SUIZA SA</td>
+                        <td  class="col_5">E14831</td>
+                        <td  class="col_6">INKAFARMA</td>
+                        <td  class="col_7">S/ 5.10</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header card-custom" id="headingOne">
+                <h2 class="mb-0">
+                  <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    ALICAM FORTE
+                  </button>
+                </h2>
+                <div class="link-mapa"> 
+                  <a href="#">VER MAPA</a> 
+                </div>
+              </div>
+          
+              <div id="itemTwo" class="collapse show" style="display: none;" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="data-details">
+                  <table class="table table-custom">
+                    <tbody>
+                      <tr>
+                        <td>500mg TABLETA</td>
+                        <td>E14831</td>
+                        <td>QUIMICA SUIZA SA</td>
+                        <td>S/ 20.20</td>
+                      </tr>
+                      <tr>
+                        <td>500mg TABLETA</td>
+                        <td>E14831</td>
+                        <td>GLAXOSMITHKLINE</td>
+                        <td>S/ 15.20</td>
+                      </tr>
+                      <tr>
+                        <td>500mg TABLETA</td>
+                        <td>E14831</td>
+                        <td>BOTICA BOLOGNESI</td>
+                        <td>S/ 0.80</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+
+
+            <div class="card">
+              <div class="card-header  card-custom" id="headingOne">
+                <h2 class="mb-0">
+                  <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    APROXOL 100
+                  </button>
+                </h2>
+                <div class="link-mapa"> 
+                  <a href="#">VER MAPA</a> 
+                </div>
+              </div>
+          
+              <div id="itemThree" class="collapse show" style="display: none;" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="data-details">
+                  <table class="table table-custom">
+                    <tbody>
+                      <tr>
+                        <td>500mg TABLETA</td>
+                        <td>E14831</td>
+                        <td>QUIMICA SUIZA SA</td>
+                        <td>S/ 20.20</td>
+                      </tr>
+                      <tr>
+                        <td>500mg TABLETA</td>
+                        <td>E14831</td>
+                        <td>GLAXOSMITHKLINE</td>
+                        <td>S/ 15.20</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="filter-column">
+        <div class="title-filter">DATOS</div>
+        
+        <div class="columns-data" id="data-filter-items">
+          
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="col_1" checked>
+            <label class="custom-control-label" for="col_1">Nombre</label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="col_2" checked>
+            <label class="custom-control-label" for="col_2">Nombre Gen.</label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="col_3" checked>
+            <label class="custom-control-label" for="col_3">Presentacion</label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="col_4" checked>
+            <label class="custom-control-label" for="col_4">Fabricante</label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="col_5" checked>
+            <label class="custom-control-label" for="col_5">R. Sanitario</label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="col_6" checked>
+            <label class="custom-control-label" for="col_6">Sucursal</label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="col_7" checked>
+            <label class="custom-control-label" for="col_7">Precio</label>
+          </div>
+
+        </div>
+      </div>
+      
+
+      <!-- Script propio -->
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
+
+
+    <!-- SDK FIREBASE -->
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
+
+    <script src="./js/home.js"></script>
+</body>
+</html>
