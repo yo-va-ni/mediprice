@@ -251,3 +251,9 @@ header .header-icon{
     align-items: center;
     justify-content: center;
 }
+
+
+
+#busqueda-mapa { 
+    height: 100%; 
+}

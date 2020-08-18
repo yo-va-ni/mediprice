@@ -28,18 +28,63 @@ sign-padding{
     display: flex;
     justify-content: center;
 }
-
-.main{
-    display: grid;
-    grid-template-columns:  0.7fr 2.5fr 0.5fr;
-    box-sizing: border-box;
-    padding: 2rem;
+@media(min-width: 1000px){
+    .main{
+        display: grid;
+        grid-template-columns:  0.7fr 2.5fr 0.5fr;
+        box-sizing: border-box;
+        padding: 2rem;
+    }
+    .search-filter{
+        background-color: #F8F8F8;
+        padding: 1rem;
+        
+    }
+    .search-data{
+        margin: 0 1rem;
+    }
+    
+    .filter-column{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: #F8F8F8;
+        padding: 1rem;
+    }    
 }
 
-.search-filter{
-    background-color: #F8F8F8;
-    padding: 1rem;
+@media(max-width : 1000px){
+    .main{
+        display: grid;
+        grid-template-areas: "data data"
+        "filter columns";
+        gap: 1rem;
+        padding: 2rem;
+    }
+    .search-filter{
+        grid-area: filter;
+        background-color: #F8F8F8;
+        padding: 1rem;
+        
+    }
+    .search-data{
+        grid-area: data;
+        margin: 0 1rem;
+
+    }
+    
+    .filter-column{
+        grid-area: columns;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: #F8F8F8;
+        padding: 1rem;
+    }    
 }
+
+
+
 .location-level{
     display: grid;
     grid-template-columns: 1fr 1.2fr;
@@ -48,10 +93,6 @@ sign-padding{
 .place-catgeories{
     display: flex;
     justify-content: space-evenly;
-}
-
-.search-data{
-    margin: 0 1rem;
 }
 .data-name{
     display: flex;
@@ -81,13 +122,6 @@ sign-padding{
 }
 
 
-.filter-column{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    background-color: #F8F8F8;
-    padding: 1rem;
-}
 .columns-data{
     padding-left: 1.5rem;
 }
@@ -106,3 +140,4 @@ sign-padding{
 .filter-group{
     margin-bottom: 1rem;
 }
+

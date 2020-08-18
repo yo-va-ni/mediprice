@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Map API -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+      crossorigin=""></script>
+
     <title>MediPrice</title>
 </head>
 <body>
@@ -41,7 +51,7 @@
             <div class="item subitem_2">RADIO DE BUSQUEDA</div>
             <div class="item subitem_3"><a href="home.html">VOLVER</a></div>
             <div class="item subitem_4">
-                <input type="range">
+                <input type="range" min="100" max="2000" id="range-distance" onchange="changeDistance(this.value)">
             </div>
             <div class="item subitem_5">
                 <a href="home.html">
@@ -49,9 +59,11 @@
                     <img style="height: 20px;" src="images/back.png ">
                 </a>
             </div>
-            <div class="item subitem_6">
-                <img src="images/distance.png" alt="">
+            
+            <div class="item subitem_6" id="busqueda-mapa">
+                
             </div>
+
             <div class="item subitem_7">SELECCIONADO:BOTICA MIFARMA</div>
             <div class="item subitem_8">PRECIO</div>
             <div class="item subitem_9">S/. 0.30</div>
