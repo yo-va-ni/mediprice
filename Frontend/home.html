@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/mapa.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
@@ -55,8 +56,32 @@
             <div class="location-level">
               <div>Departamento</div>
               <select class="custom-select" id="buscar_dep">
-                <option selected>Seleccione uno</option>
-                <option value="1">One</option>
+                <option class="region_item"lected>Seleccione uno</option>
+                <option class="region_item" value="01">AMAZONAS</option>
+                <option class="region_item" value="02">ANCASH</option>
+                <option class="region_item" value="03">APURIMAC</option>
+                <option class="region_item" value="04">AREQUIPA</option>
+                <option class="region_item" value="05">AYACUCHO</option>
+                <option class="region_item" value="06">CAJAMARCA</option>
+                <option class="region_item" value="07">CALLAO</option>
+                <option class="region_item" value="08">CUSCO</option>
+                <option class="region_item" value="09">HUANCAVELICA</option>
+                <option class="region_item" value="10">HUANUCO</option>
+                <option class="region_item" value="11">ICA</option>
+                <option class="region_item" value="12">JUNIN</option>
+                <option class="region_item" value="13">LA LIBERTAD</option>
+                <option class="region_item" value="14">LAMBAYEQUE</option>
+                <option class="region_item" value="15">LIMA</option>
+                <option class="region_item" value="16">LORETO</option>
+                <option class="region_item" value="17">MADRE DE DIOS</option>
+                <option class="region_item" value="18">MOQUEGUA</option>
+                <option class="region_item" value="19">PASCO</option>
+                <option class="region_item" value="20">PIURA</option>
+                <option class="region_item" value="21">PUNO</option>
+                <option class="region_item" value="22">SAN MARTIN</option>
+                <option class="region_item" value="23">TACNA</option>
+                <option class="region_item" value="24">TUMBES</option>
+                <option class="region_item" value="25">UCAYALI</option>
               </select>
             </div>
 
@@ -118,10 +143,10 @@
 
           <div class="accordion" id="accordionData">
             
-
-            
             <div class="card">
+
               <div class="card-header card-custom">
+
                 <h2 class="mb-0">
                   <button class="btn btn-block text-left"  type="button">
                     Realiza tu búsqueda
@@ -177,6 +202,21 @@
         </div>
       </div>
       
+
+      <!-- Mapa modal -->
+
+      <div id="my-modal-map" class="my-modal">
+
+        <!-- Modal content -->
+        <div class="my-modal-content">
+          <span class="close">&times;</span>
+          <p>Some text in the Modal..</p>
+        </div>
+      
+      </div>
+
+
+
 
       <!-- Script propio -->
 

@@ -1,4 +1,4 @@
-var firebaseConfig = {
+let firebaseConfig = {
     apiKey: "AIzaSyAp5DSQDZTHDJeDPSNCjJp8SUkkhDrtJek",
     authDomain: "proyecto-tis.firebaseapp.com",
     databaseURL: "https://proyecto-tis.firebaseio.com",
@@ -50,7 +50,7 @@ form_busqueda.addEventListener("submit", (ev) => {
     ev.preventDefault();
     let formData = new FormData(form_busqueda);
     let producto = formData.entries().next().value[1];
-    productos = database.collection("medicamentos")
+    productos = database.collection("medicamento")
     .where("nombreComercial", "==", producto)
     .get()
     .then(result => {
@@ -79,15 +79,15 @@ const armarBarra = (producto) => {
     bar_name.innerHTML = `<button class="btn btn-block text-left" id="r-${producto.id}" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">${producto.data().nombreComercial}</button>`;
     let bar_mapa = document.createElement("div")
     bar_mapa.classList.add("link-mapa");
-    bar_mapa.innerHTML = `<a href="#">VER MAPA</a>`;
-    bar_mapa.addEventListener("click", ev => {
+    bar_mapa.innerHTML = `<a id="abrir-mapa" href="#">VER MAPA</a>`;
+    /*bar_mapa.addEventListener("click", ev => {
         ev.preventDefault();
         ev.stopPropagation();
         let son = ev.target;
         let id_item =son.parentElement.previousElementSibling.lastElementChild.id.slice(2)
         console.log("redirigiendo");
         window.location = `mapa_detalle.html?id=${id_item}`
-    });
+    });*/
 
     bar.appendChild(bar_name);
     bar.appendChild(bar_mapa);
@@ -174,3 +174,35 @@ columns_filter.addEventListener("change", (ev) => {
     
 });
 
+
+/*
+// Mapa
+
+let modal = document.getElementById("my-modal-map");
+
+// Get the button that opens the modal
+let btn = document.getElementById("abrir-mapa");
+
+// Get the <span> element that closes the modal
+let span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function(ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+*/
