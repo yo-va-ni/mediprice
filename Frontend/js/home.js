@@ -14,12 +14,32 @@ firebase.analytics();
 const auth = firebase.auth();
 let database = firebase.firestore();
 
-let items = [];
 let medicamentos = [];
 
 const logout = document.getElementById("logout");
 let link_mapa_detalle = [];
 const columns_filter = document.getElementById("data-filter-items");
+
+
+// Mapa
+
+let myModalMap = document.getElementById("my-modal-map");
+
+// Get the <span> element that closes the modal
+let spanCloseMap = document.getElementsByClassName("close-map")[0];
+
+// When the user clicks on <span> (x), close the modal
+spanCloseMap.onclick = function() {
+    myModalMap.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(ev) {
+  if (ev.target == myModalMap) {
+    myModalMap.style.display = "none";
+  }
+}
+
+
 
 // Verificacion de inicio de sesion
 
@@ -39,9 +59,11 @@ logout.addEventListener("click", (ev) => {
       console.log("Good bye Mr");
       window.location = "index.html"
     });
-  });
+});
 
 
+// Importando objeto Producto
+//import { Producto as Producto } from "../models/producto";
 
 
 // Ejecución de busqueda
@@ -60,6 +82,7 @@ form_busqueda.addEventListener("submit", (ev) => {
         accordion.innerHTML = ""
         card.className = "card";
         result.forEach(med => {
+            console.log(med.data());
             medicamentos.push(med);
         });
         card.appendChild(armarBarra(medicamentos[0]));
@@ -80,14 +103,12 @@ const armarBarra = (producto) => {
     let bar_mapa = document.createElement("div")
     bar_mapa.classList.add("link-mapa");
     bar_mapa.innerHTML = `<a id="abrir-mapa" href="#">VER MAPA</a>`;
-    /*bar_mapa.addEventListener("click", ev => {
+    bar_mapa.addEventListener("click", ev => {
         ev.preventDefault();
         ev.stopPropagation();
-        let son = ev.target;
-        let id_item =son.parentElement.previousElementSibling.lastElementChild.id.slice(2)
-        console.log("redirigiendo");
-        window.location = `mapa_detalle.html?id=${id_item}`
-    });*/
+        myModalMap.style.display = "block";
+        console.log("Abriendo mapa");
+    });
 
     bar.appendChild(bar_name);
     bar.appendChild(bar_mapa);
@@ -128,7 +149,7 @@ const armarTBody = (medicamentos) => {
     let table_body = document.createElement("tbody");
     medicamentos.forEach(med => {
         let data = med.data();
-        table_body.innerHTML += `<tr>
+        table_body.innerHTML += `<tr class="producto_item">
             <td  class="col_1">${data.nombreComercial}</td>
             <td  class="col_2">${data.concentracion}</td>
             <td  class="col_3">Pendiente</td>
@@ -175,34 +196,47 @@ columns_filter.addEventListener("change", (ev) => {
 });
 
 
-/*
-// Mapa
+// Filtros de búsqueda region - provincia - distrito
+// Provincia
+$("#buscar_dep").change( () => {
+    let idRegion = $("#buscar_dep option:selected").val();
+    let provincias = database.collection("provincia")
+    .where("idRegion", "==", idRegion)
+    .get()
+    .then(result => {
+        
+        $("#buscar_prov").empty();
+        $("#buscar_prov").append("<option selected>Seleccione uno</option>");
+        result.forEach(provincia => {
+            $("#buscar_prov").append(`<option value="${provincia.data().idProvincia}">${provincia.data().nombreProvincia}</option>`);
+        });
+    });
+});
+// Distrito
+$("#buscar_prov").change( () => {
+    let idRegion = $("#buscar_dep option:selected").val();
+    let idProvincia = $("#buscar_prov option:selected").val();
+    let distritos = database.collection("distrito")
+    .where("idRegion", "==", idRegion)
+    .where("idProvincia", "==", idProvincia)
+    .get()
+    .then(result => {
+        $("#buscar_dis").empty();
+        $("#buscar_dis").append("<option selected>Seleccione uno</option>");
+        result.forEach(distrito => {
+            $("#buscar_dis").append(`<option value="${distrito.data().idDistrito}">${distrito.data().nombreDistrito}</option>`);
+        });
+    });// Realizar busqueda provincia
+});
+// Aplicar filtro
+$("#aplicarFiltro").click( () => {
+    let idRegion = $("#buscar_dep option:selected").val();
+    let idProvincia = $("#buscar_prov option:selected").val();
+    let idDistrito = $("#buscar_dis option:selected").val();
+    console.log(`${idRegion} ${idProvincia} ${idDistrito}`);
+});
 
-let modal = document.getElementById("my-modal-map");
 
-// Get the button that opens the modal
-let btn = document.getElementById("abrir-mapa");
 
-// Get the <span> element that closes the modal
-let span = document.getElementsByClassName("close")[0];
 
-// When the user clicks the button, open the modal 
-btn.onclick = function(ev) {
-    ev.stopPropagation();
-    ev.preventDefault();
-    modal.style.display = "block";
-}
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-*/
