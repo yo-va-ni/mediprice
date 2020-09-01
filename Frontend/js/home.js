@@ -14,7 +14,9 @@ firebase.analytics();
 const auth = firebase.auth();
 let database = firebase.firestore();
 
+
 let medicamentos = [];
+let list_prod;
 
 const logout = document.getElementById("logout");
 let link_mapa_detalle = [];
@@ -72,34 +74,67 @@ form_busqueda.addEventListener("submit", (ev) => {
     ev.preventDefault();
     let formData = new FormData(form_busqueda);
     let producto = formData.entries().next().value[1];
-    productos = database.collection("medicamento")
+    database.collection("medicamento")
     .where("nombreComercial", "==", producto)
     .get()
     .then(result => {
-        
         let card = document.createElement("div");
         let accordion = document.getElementById("accordionData");
         accordion.innerHTML = ""
         card.className = "card";
-        result.forEach(med => {
-            console.log(med.data());
-            medicamentos.push(med);
-        });
-        card.appendChild(armarBarra(medicamentos[0]));
-        card.appendChild(pintarRsultados(medicamentos));
+        if (result.empty) {
+            accordion.innerHTML = "No hay resultados"
+        } else {
+            
+            result.forEach( async (med) => {
+                card.innerHTML = "";
+                console.log(card);
+                let med_item = new Medicamento(med.data()) //Object.assign({}, med.data());
+                list_prod = [];
+                // Busqueda de productos por medicamento
+                responseProd = await database.collection("producto")
+                .where("idMedicamento", "==", med_item.idRegistroSanitario)
+                .get()
 
-        accordion.appendChild(card);
+                if (!responseProd.empty) {
+                    responseProd.forEach( async (prod) => {
+                        let prod_item = new Producto(prod.data());
+                        responseSuc = await database.collection("sucursales")
+                        .where("rucNegocio", "==", prod_item.rucNegocio)
+                        .where("idSucursal", "==", prod_item.idSucursal)
+                        .get()
+
+                        if (!responseSuc.empty) {
+                            responseSuc.forEach( suc => {
+                                prod_item.construirSucursal(suc.data());
+                            });
+                            med_item.agregarProducto(prod_item);
+                            // Agregar a la tabla
+                            let t_body = armarTBody({ ...med_item , ...prod_item});
+                            document.getElementById(prod_item.idMedicamento).getElementsByTagName("table")[0].appendChild(t_body);
+                        }
+                    });
+                    console.log(med_item);
+                    card.appendChild(armarBarra(med_item));
+                    medicamentos.push(med_item);
+                    card.appendChild(pintarRsultados(med_item));
+                }
+                accordion.appendChild(card);
+            });
+        }
     });
 });
 
+
+
 // Armando la barra de presentacion
-const armarBarra = (producto) => {
+const armarBarra = (medicamento) => {
 
     let bar = document.createElement("div")
     bar.className = "card-header card-custom";
     let bar_name = document.createElement("h2")
     bar_name.classList.add("mb-0");
-    bar_name.innerHTML = `<button class="btn btn-block text-left" id="r-${producto.id}" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">${producto.data().nombreComercial}</button>`;
+    bar_name.innerHTML = `<button class="btn btn-block text-left" id="r-${medicamento.idRegistroSanitario}" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">${medicamento.nombreComercial}</button>`;
     let bar_mapa = document.createElement("div")
     bar_mapa.classList.add("link-mapa");
     bar_mapa.innerHTML = `<a id="abrir-mapa" href="#">VER MAPA</a>`;
@@ -133,47 +168,46 @@ const armarCabecera = () => {
     table.className = "table table-custom";
     table.innerHTML = `<thead class="thead-dark">
         <tr>
-        <th scope="col" class="col_1">Nombre</th>
-        <th scope="col" class="col_2">Concntracion</th>
-        <th scope="col" class="col_3">Presentacion</th>
-        <th scope="col" class="col_4">Fabricante</th>
-        <th scope="col" class="col_5">Reg. Sanitario</th>
-        <th scope="col" class="col_6">Sucursal</th>
-        <th scope="col" class="col_7">Precio</th>
+        <th scope="col" class="col_1">Concentracion</th>
+        <th scope="col" class="col_2">Presentacion</th>
+        <th scope="col" class="col_3">Fecha Vencimiento</th>
+        <th scope="col" class="col_4">RUC </th>
+        <th scope="col" class="col_5">Precio</th>
+        <th scope="col" class="col_6">Direccion</th>
+        <!--<th scope="col" class="col_7">Precio</th>-->
         </tr>
     </thead>`;
     return table;
 }
 
-const armarTBody = (medicamentos) => {
+const armarTBody = ({concentracion, fechaVencimiento, idPresentMed, productos}) => {
     let table_body = document.createElement("tbody");
-    medicamentos.forEach(med => {
-        let data = med.data();
+    productos.forEach(data => {
         table_body.innerHTML += `<tr class="producto_item">
-            <td  class="col_1">${data.nombreComercial}</td>
-            <td  class="col_2">${data.concentracion}</td>
-            <td  class="col_3">Pendiente</td>
-            <td  class="col_4">${data.rucLaboratorio}</td>
-            <td  class="col_5">${med.id}</td>
-            <td  class="col_6">Pendiente</td>
-            <td  class="col_7">Pendiente</td>
+            <td  class="col_1">${concentracion}</td>
+            <td  class="col_2">${idPresentMed}</td>
+            <td  class="col_3">${fechaVencimiento}</td>
+            <td  class="col_4">${data.rucNegocio}</td>
+            <td  class="col_5">${data.precio}</td>
+            <td  class="col_6">${data.sucursal.direccionSucursal}</td>
+            <!--<td  class="col_7">Pendiente</td>-->
         </tr>`;
     });
     return table_body;
 };
 // Renderizacion de los resultados de la busqueda
-const pintarRsultados = (medicamentos) => {
+const pintarRsultados = (med_item) => {
     let div_body = document.createElement("div");
     let div_content = document.createElement("div");
     div_body.className = "collapse";
-    div_body.id = medicamentos[0].id;
+    div_body.id = med_item.idRegistroSanitario;
     div_content.className = "data-details";
     let table = armarCabecera();
-    table.appendChild(armarTBody(medicamentos));
+    //table.appendChild(armarTBody(med_item));
     
     div_content.appendChild(table);
     div_body.appendChild(div_content);
-    return div_body
+    return div_body;
 };
 
 

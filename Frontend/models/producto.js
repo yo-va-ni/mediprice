@@ -1,19 +1,18 @@
 
 class Producto{
     
-    constructor(idMedicamento, idSucursal, precio, precioAnterior, ultimaAct){
+    constructor({idMedicamento, idSucursal, precio, precioAnterior, ultimaAct, rucNegocio}){
         this.idMedicamento = idMedicamento;
         this.idSucursal = idSucursal;
         this.precio = precio;
         this.precioAnterior = precioAnterior;
         this.ultimaAct = ultimaAct;
+        this.rucNegocio = rucNegocio;
+        this.sucursal = "";
     };
 
-    construirMedicamento({ idRegistroSanitario, nombreComercial, concentracion, rucLaboratorio, fechaVencimiento }){
-        this.medicamento = new Medicamento(idRegistroSanitario, nombreComercial, concentracion, rucLaboratorio, fechaVencimiento);
-    };
-    construirSucursal({ rucNegocio, idSucursal, direccionSucursal, latitudUbicacion, longitudUbicacion, idRegion, idProvincia, idDistrito }){
-        this.sucursal = new Sucursal(rucNegocio, idSucursal, direccionSucursal, latitudUbicacion, longitudUbicacion, idRegion, idProvincia, idDistrito);
+    construirSucursal(sucursal){
+        this.sucursal = new Sucursal(sucursal);
     };
 };
 

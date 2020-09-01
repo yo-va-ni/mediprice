@@ -1,5 +1,5 @@
 class Sucursal{
-    constructor(rucNegocio, idSucursal, direccionSucursal, latitudUbicacion, longitudUbicacion, idRegion, idProvincia, idDistrito){
+    constructor({rucNegocio, idSucursal, direccionSucursal, latitudUbicacion, longitudUbicacion, idRegion, idProvincia, idDistrito}){
         this.rucNegocio = rucNegocio || "";
         this.idSucursal = idSucursal || "";
         this.direccionSucursal = direccionSucursal || "";
