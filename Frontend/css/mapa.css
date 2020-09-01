@@ -18,7 +18,7 @@
   background-color: #fefefe;
   margin: auto;
   padding: 0;
-  width: 60%;
+  width: 80%;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 0.4s;
@@ -27,14 +27,16 @@
 }
 
 .my-modal-head {
+  display: flex;
+  justify-content: space-between;
   padding: 2px 16px;
-  background-color: #ff0000;
+  background-color: #152362f8;
   color: white;
 }
 .my-modal-main {padding: 2px 16px;}
 .my-modal-foot {
   padding: 2px 16px;
-  background-color: #ff0000;
+  background-color: #152362f8;
   color: #ffffff;
 }
 
@@ -61,3 +63,182 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+
+
+
+
+
+
+.distance-container{
+  display: grid;
+  height: 500px;
+  margin-top: 50px;
+  width: 100%;
+  grid-template: repeat(9,1fr) / 50px  1fr  1fr   30px   1fr  1fr    50px ;
+  grid-template-areas: " .  subitem_1   subitem_2   .  subitem_3   subitem_4   . "
+                       "  .   .    subitem_5   .     .     .               ."
+                      "  .     .     .      .     subitem_7    subitem_7    .";
+  margin-bottom: 2rem;
+}
+.item{
+  
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.subitem_1{
+  font-size: 2rem;
+  grid-area: subitem_1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 0;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px 0px rgba(30, 30, 30, 0.5),1px 1px 4px 0px rgba(30, 30, 30, 0.1);
+}
+.subitem_2{
+  grid-area: subitem_2;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.subitem_3{
+  grid-area: subitem_3;
+  display: flex;
+  justify-content:flex-end   ;
+  align-items: flex-end;
+}
+.subitem_4{
+  grid-area: subitem_5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.subitem_5{
+  grid-area: subitem_4;
+  display: flex;
+  padding-left: 15px;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+.item:nth-of-type(6){
+  grid-row-start: 3;
+  grid-row-end: 10;
+  grid-column-start: 2;
+  grid-column-end: 4;
+  
+}
+.subitem_6 img{
+  height: 100%;
+  width: 100%;
+}
+.item:nth-of-type(7){
+  grid-column-start: 5;
+  background: blue;
+  color: white;
+  grid-column-end: 7;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.item:nth-of-type(8){
+  grid-column-start: 5;
+  grid-column-end: 6;
+  grid-row-start: 4;
+  grid-row-end: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f8;
+}
+.item:nth-of-type(9){
+  grid-column-start: 6;
+  grid-column-end: 7;
+  grid-row-start: 4;
+  grid-row-end: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f8;
+}
+.item:nth-of-type(10){
+  grid-column-start: 5;
+  grid-column-end: 6;
+  grid-row-start: 5;
+  grid-row-end: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f8;
+}
+.item:nth-of-type(11){
+  grid-column-start: 6;
+  grid-column-end: 7;
+  grid-row-start: 5;
+  grid-row-end: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f8;
+}
+.item:nth-of-type(12){
+  grid-column-start: 5;
+  grid-column-end: 6;
+  grid-row-start: 6;
+  grid-row-end: 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f8;
+}
+.item:nth-of-type(13){
+  grid-column-start: 6;
+  grid-column-end: 7;
+  grid-row-start: 6;
+  grid-row-end: 7;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  background: #f8f8f8;
+}
+.item:nth-of-type(14){
+  grid-column-start: 5;
+  grid-column-end: 6;
+  grid-row-start: 7;
+  grid-row-end: 8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f8;
+}
+.item:nth-of-type(15){
+  grid-column-start: 6;
+  grid-column-end: 7;
+  grid-row-start: 7;
+  grid-row-end: 8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f8;
+}
+.item:nth-of-type(16){
+  grid-column-start: 5;
+  grid-column-end: 6;
+  grid-row-start: 8;
+  grid-row-end: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.item:nth-of-type(17){
+  grid-column-start: 6;
+  grid-column-end: 7;
+  grid-row-start: 8;
+  grid-row-end: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

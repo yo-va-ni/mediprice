@@ -9,6 +9,15 @@
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/mapa.css">
+
+    <!-- Map API -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+      crossorigin=""></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
@@ -207,15 +216,54 @@
       <div id="my-modal-map" class="my-modal">
         <div class="my-modal-content">
           <div class="my-modal-head">
-              <span class="close-map">×</span>
-              <h2>Simple Modal Popup</h2>
+            <h2>Simple Modal Popup</h2>
+            <span class="close-map">X</span>
           </div>
           <div class="my-modal-main">
-              <p>This is a simple modal popup using JavaScript and CSS</p>
-              <p>Please the content...</p>
+
+            <section class="distance-format">
+              <div class="distance-container">
+                <div class="item subitem_1" id="map-title"></div>
+                <div class="item subitem_2">RADIO DE BUSQUEDA: <span id="rad_distance_bus"></span></div>
+                <div class="item subitem_3"></div>
+                <div class="item subitem_4">
+                    <input type="range" min="100" max="2000" id="range-distance" onchange="changeDistance(this.value)">
+                </div>
+                <div class="item subitem_5">
+                  
+                </div>
+                
+                <div class="item subitem_6" id="busqueda-mapa">
+                    
+                </div>
+    
+                <div class="item subitem_7">SELECCIONADO:BOTICA MIFARMA</div>
+                <div class="item subitem_8">PRECIO</div>
+                <div class="item subitem_9 detalle_producto"></div>
+                <div class="item subitem_10">PRECIO ANTERIOR</div>
+                <div class="item subitem_11 detalle_producto"></div>
+                <div class="item subitem_12">DIRECCION</div>
+                <div class="item subitem_13 detalle_producto"></div>
+                <div class="item subitem_14">DISTANCIA</div>
+                <div class="item subitem_15 detalle_producto"></div>
+                <div class="item subitem_16">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Agregar a carrito
+                  </button>
+                </div>
+                <div class="item subitem_17">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Valorar
+                  </button>
+                </div>
+                  
+              </div>
+            </section>
+
           </div>
+
           <div class="my-modal-foot">
-              <p>created by CodexWorld</p>
+              <p>created by Mediprice</p>
           </div>
         </div>
       </div>

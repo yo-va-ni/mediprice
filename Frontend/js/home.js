@@ -16,17 +16,16 @@ let database = firebase.firestore();
 
 
 let medicamentos = [];
-let list_prod;
+let circle_radius;
+let mymap;
 
 const logout = document.getElementById("logout");
-let link_mapa_detalle = [];
 const columns_filter = document.getElementById("data-filter-items");
 
 
-// Mapa
+// Modal
 
 let myModalMap = document.getElementById("my-modal-map");
-
 // Get the <span> element that closes the modal
 let spanCloseMap = document.getElementsByClassName("close-map")[0];
 
@@ -88,9 +87,7 @@ form_busqueda.addEventListener("submit", (ev) => {
             
             result.forEach( async (med) => {
                 card.innerHTML = "";
-                console.log(card);
-                let med_item = new Medicamento(med.data()) //Object.assign({}, med.data());
-                list_prod = [];
+                let med_item = new Medicamento(med.data()) 
                 // Busqueda de productos por medicamento
                 responseProd = await database.collection("producto")
                 .where("idMedicamento", "==", med_item.idRegistroSanitario)
@@ -114,7 +111,6 @@ form_busqueda.addEventListener("submit", (ev) => {
                             document.getElementById(prod_item.idMedicamento).getElementsByTagName("table")[0].appendChild(t_body);
                         }
                     });
-                    console.log(med_item);
                     card.appendChild(armarBarra(med_item));
                     medicamentos.push(med_item);
                     card.appendChild(pintarRsultados(med_item));
@@ -142,7 +138,22 @@ const armarBarra = (medicamento) => {
         ev.preventDefault();
         ev.stopPropagation();
         myModalMap.style.display = "block";
-        console.log("Abriendo mapa");
+
+        let map_title = document.getElementById("map-title");
+        map_title.innerText = medicamento.nombreComercial;
+        medicamento.productos.forEach( prod => {
+            let sucursalPosition = [prod.sucursal.latitudUbicacion, prod.sucursal.longitudUbicacion];
+            let marker = L.marker(sucursalPosition).addTo(mymap);
+            marker.addEventListener("click", (ev) => {
+                // Cambiar el detalle
+                let detalle = document.getElementsByClassName("detalle_producto");
+                detalle[0].innerHTML = `S/ ${prod.precio}`;
+                detalle[1].innerHTML = `S/ ${prod.precioAnterior}`;
+                detalle[2].innerHTML = `${prod.sucursal.direccionSucursal}`;
+                let distancia_sucursal = prod.sucursal.calcularDistancia(currentPosition)*1000;
+                detalle[3].innerHTML = ` ${distancia_sucursal<1000 ? distancia_sucursal: distancia_sucursal/1000} ${distancia_sucursal<1000 ? 'metros': 'Km'}`;
+            });
+        });
     });
 
     bar.appendChild(bar_name);
@@ -272,5 +283,38 @@ $("#aplicarFiltro").click( () => {
 
 
 
+// Mapa
+
+const changeDistance = (radius) => {
+    circle_radius.setRadius(radius);
+    let rad = document.getElementById("rad_distance_bus");
+    rad.innerText = ` ${radius<1000 ? radius: radius/1000} ${radius<1000 ? 'metros': 'Km'}`
+};
+const showPosition = (position) => {
+    currentPosition = [position.coords.latitude, position.coords.longitude];
+    
+    mymap = L.map('busqueda-mapa').setView(currentPosition, 15);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    }).addTo(mymap);
+    L.marker(currentPosition).addTo(mymap);
+    circle_radius = L.circle(currentPosition, {
+        color: 'green',
+        fillColor: '#2feb7d',
+        fillOpacity: 0.3,
+        radius: document.getElementById("range-distance").value
+    }).addTo(mymap);
+};
+  
+const getLocation = async () => {
+    if (navigator.geolocation) {
+        await navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        console.log("No position");
+    }
+};
+  
+
+getLocation();
 
 
