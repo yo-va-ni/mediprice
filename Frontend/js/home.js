@@ -18,28 +18,45 @@ let database = firebase.firestore();
 let medicamentos = [];
 let circle_radius;
 let mymap;
+let productos_mapa = {elegido: "", lista: []};
+let marker_mapa = [];
+let currentPosition;
 
 const logout = document.getElementById("logout");
 const columns_filter = document.getElementById("data-filter-items");
 
 
-// Modal
-
+// Modal mapa
 let myModalMap = document.getElementById("my-modal-map");
-// Get the <span> element that closes the modal
 let spanCloseMap = document.getElementsByClassName("close-map")[0];
+let abrirValoracion = document.getElementById("abrirValoracion");
+let realizarValoracion = document.getElementById("valoracion");
 
-// When the user clicks on <span> (x), close the modal
 spanCloseMap.onclick = function() {
     myModalMap.style.display = "none";
+    productos_mapa = {elegido: "", lista: []};
 }
-// When the user clicks anywhere outside of the modal, close it
+
 window.onclick = function(ev) {
   if (ev.target == myModalMap) {
     myModalMap.style.display = "none";
+    productos_mapa = {elegido: "", lista: []};
   }
 }
 
+abrirValoracion.addEventListener("click", ed => {
+    let prod_a_valorar = productos_mapa.elegido;
+    let valoracion_item = document.getElementsByClassName("val_producto");
+    valoracion_item[0].innerHTML = `S/ ${prod_a_valorar.precio}`;
+    valoracion_item[1].innerHTML = `S/ ${prod_a_valorar.precioAnterior}`;
+    valoracion_item[2].innerHTML = `${prod_a_valorar.sucursal.direccionSucursal}`;
+    valoracion_item[3].innerHTML = `${prod_a_valorar.sucursal.calcularDistancia(currentPosition)} Km`;
+});
+
+realizarValoracion.addEventListener("click", ev => {
+    let valorizacion = document.getElementById("range-valoracion");
+    alert(`Usted ha valorizado con ${valorizacion.value} al negocio ${productos_mapa.elegido.sucursal.rucNegocio}`);
+});
 
 
 // Verificacion de inicio de sesion
@@ -142,10 +159,13 @@ const armarBarra = (medicamento) => {
         let map_title = document.getElementById("map-title");
         map_title.innerText = medicamento.nombreComercial;
         medicamento.productos.forEach( prod => {
+            productos_mapa.lista.push(prod);
             let sucursalPosition = [prod.sucursal.latitudUbicacion, prod.sucursal.longitudUbicacion];
             let marker = L.marker(sucursalPosition).addTo(mymap);
+            marker_mapa.push(marker);
             marker.addEventListener("click", (ev) => {
                 // Cambiar el detalle
+                productos_mapa.elegido = prod;
                 let detalle = document.getElementsByClassName("detalle_producto");
                 detalle[0].innerHTML = `S/ ${prod.precio}`;
                 detalle[1].innerHTML = `S/ ${prod.precioAnterior}`;
