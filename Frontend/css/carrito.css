@@ -1,14 +1,21 @@
 .carrito-container{
     width: 550px;
     height: 270px;
-    background-color: rgba(175, 175, 175, 0.486);
+    background-color: rgba(255, 255, 255, 0.919);
+    border-radius: 5px;
+    box-shadow: 0 0 4px 1px rgba(220, 220, 220, 0.741);
     position: fixed;
     top: 6.6rem;
     right: 1rem;
     z-index: 100;
     padding: 0.5rem;
+    visibility: hidden;
 }
 
+.carrito-top{
+    display: flex;
+    justify-content: space-between;
+}
 .carrito-bottom{
     display: flex;
     justify-content: space-between;
@@ -16,9 +23,29 @@
     border-top: rgba(88, 88, 88, 0.646) solid 1px;
 }
 
+.open-carrito{
+    background-image: url("../images/carrito.png");
+    background-position: center;
+    background-size: 1.8rem;
+    background-repeat: no-repeat;
+    position: fixed;
+    right: 2rem;
+    top: 6.6rem;
+    visibility: visible;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
 
 .boton-vaciar{
     background-color: rgb(226, 158, 69);
+}
+.boton-guardar{
+    background-color: rgb(62, 197, 78);
 }
 
 #carrito{

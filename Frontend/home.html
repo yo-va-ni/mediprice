@@ -33,7 +33,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="receta.html">COTIZACION <span class="sr-only">(current)</span></a>
+              <a class="nav-link" onclick="toggleCarrito()" href="#">COTIZACION <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="About.html">ACERCA DE NOSOTROS</a>
@@ -311,8 +311,11 @@
       </div>
 
       <!-- Carrito -->
-      <div class="carrito-container">
-        <h2>Carrito</h2>
+      <div class="carrito-container" id="carrito-container">
+        <div class="carrito-top">
+          <h2>Carrito</h2>
+          <div><button id="close-carrito" class="close-carrito">X</button></div>
+        </div>
 
         <ul id="carrito" class="list-group">
 
@@ -321,12 +324,17 @@
 
 
         <div class="carrito-bottom">
-          <button id="boton-vaciar" class="btn boton-vaciar">Vaciar carrito</button>
+          <div>
+            <button id="boton-vaciar" class="btn boton-vaciar">Vaciar carrito</button>
+            <button id="boton-guardar" class="btn boton-guardar">Guardar</button>
+          </div>
+          
           <p class="total-cotizacion-p">Total: &nbsp S/&nbsp<span id="total-cotizacion">0</span></p>  
         </div>
 
       </div>
 
+      <div id ="open-carrito" class="open-carrito"></div>
 
     </div>
     <!-- Script propio -->

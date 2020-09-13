@@ -32,7 +32,12 @@ const columns_filter = document.getElementById("data-filter-items");
 let agregarCarrito = document.getElementById("agregar_carrito");
 agregarCarrito.addEventListener("click", (ev) => {
     ev.preventDefault();
-    window.location = 'receta.html';
+    carrito.push(productos_mapa.elegido.id);
+    calcularTotal();
+    renderizarCarrito();
+    let carritoContainer = document.getElementById("carrito-container");
+    carritoContainer.style.visibility = "visible";
+    console.log("agregar carrito");;
 });
 
 
@@ -62,8 +67,7 @@ abrirValoracion.addEventListener("click", ed => {
     negocio_valoracion.innerHTML = ` ${prod_a_valorar.sucursal.negocioFarmacia}`;
     valoracion_item[0].innerHTML = `${med.innerHTML}`;
     valoracion_item[1].innerHTML = `S/ ${prod_a_valorar.precio}`;
-    //valoracion_item[2].innerHTML = `${prod_a_valorar.sucursal.direccionSucursal}`;
-    //valoracion_item[3].innerHTML = `${prod_a_valorar.sucursal.calcularDistancia(currentPosition)} Km`;
+    
 });
 
 realizarValoracion.addEventListener("click", ev => {
@@ -195,6 +199,8 @@ const armarBarra = (medicamento) => {
         ev.preventDefault();
         ev.stopPropagation();
         myModalMap.style.display = "block";
+        let carritoContainer = document.getElementById("carrito-container");
+        carritoContainer.style.visibility = "hidden";
 
         let map_title = document.getElementById("map-title");
         map_title.innerText = medicamento.nombreComercial;
@@ -279,6 +285,8 @@ const armarTBody = ({concentracion, fechaVencimiento, presentacion, productos}) 
             carrito.push(ev.target.getAttribute('marcador'));
             calcularTotal();
             renderizarCarrito();
+            let carritoContainer = document.getElementById("carrito-container");
+            carritoContainer.style.visibility = "visible";
         });
         td_addCarrito.className = "col_7";
         td_addCarrito.appendChild(btn_addCarrito);
@@ -401,7 +409,18 @@ getLocation();
 
 let d_carrito = document.getElementById("carrito"),
     d_total = document.getElementById("total-cotizacion"),
-    d_botonVaciar = document.getElementById("boton-vaciar");
+    d_botonVaciar = document.getElementById("boton-vaciar"),
+    d_openCarrito = document.getElementById("open-carrito"),
+    d_closeCarrito = document.getElementById("close-carrito");
+
+d_openCarrito.addEventListener("click", (ev) => {
+    toggleCarrito();
+    d_openCarrito.style.visibility = "hidden";
+});
+d_closeCarrito.addEventListener("click", (ev) => {
+    toggleCarrito();
+    d_openCarrito.style.visibility = "visible";
+});
 
 const calcularTotal =  () => {
     // Limpiamos precio anterior
@@ -492,3 +511,18 @@ const vaciarCarrito = () => {
     calcularTotal();
 }
 d_botonVaciar.addEventListener("click", vaciarCarrito)
+
+const toggleCarrito = () => {
+    let carritoContainer = document.getElementById("carrito-container");
+    let openCarrito = document.getElementById("open-carrito");
+    console.log(carritoContainer.style.visibility);
+    if (carritoContainer.style.visibility == "visible") {
+        carritoContainer.style.visibility = "hidden";
+        openCarrito.style.visibility = "visible";
+
+    }else{
+        carritoContainer.style.visibility = "visible";
+        openCarrito.style.visibility = "hidden";
+    }
+    
+};
