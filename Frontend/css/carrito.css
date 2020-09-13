@@ -25,3 +25,9 @@
     height: 160px;
     overflow: auto;
 }
+
+.carrito-item{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    padding: 5px 1px;
+}

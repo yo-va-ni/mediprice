@@ -18,5 +18,9 @@ class Producto{
     setId(id){
         this.id = id;
     }
+
+    setNombreProducto(nombre, presentacion, concentracion){
+        this.nombreProducto = `${nombre} ${presentacion} ${concentracion}`;
+    }
 };
 

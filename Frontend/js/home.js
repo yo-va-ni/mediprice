@@ -100,6 +100,7 @@ logout.addEventListener("click", (ev) => {
 // Ejecución de busqueda
 let form_busqueda = document.getElementById("busqueda-medicamento");
 form_busqueda.addEventListener("submit", (ev) => {
+    medicamentos = [];
     ev.preventDefault();
     let formData = new FormData(form_busqueda);
     let producto = formData.entries().next().value[1];
@@ -128,8 +129,6 @@ form_busqueda.addEventListener("submit", (ev) => {
                         med_item.presentacion = present.data().nombrePresentMed;
                     });
                 }
-                
-
 
                 responseProd = await database.collection("producto")
                 .where("idMedicamento", "==", med_item.idRegistroSanitario)
@@ -137,22 +136,23 @@ form_busqueda.addEventListener("submit", (ev) => {
 
                 if (!responseProd.empty) {
                     responseProd.forEach( async (prod) => {
-                        console.log(prod.id);
                         let prod_item = new Producto(prod.data());
                         prod_item.setId(prod.id);
                         responseSuc = await database.collection("sucursales")
                         .where("rucNegocio", "==", prod_item.rucNegocio)
                         .where("idSucursal", "==", prod_item.idSucursal)
                         .get()
-
                         if (!responseSuc.empty) {
                             responseSuc.forEach( suc => {
                                 prod_item.construirSucursal(suc.data());
                             });
                             med_item.agregarProducto(prod_item);
+                            
                             // Agregar a la tabla
-                            let t_body = armarTBody({ ...med_item , ...prod_item});
-                            document.getElementById(prod_item.idMedicamento).getElementsByTagName("table")[0].appendChild(t_body);
+                           
+                            let t_body = armarTBody({ ...med_item});
+                            document.getElementById(prod_item.idMedicamento).getElementsByTagName("table")[0].appendChild(t_body.lastChild);
+        
 
                             responseNeg = await database.collection("negocio_farmaceutico")
                             .where("rucNegocio","==", prod_item.rucNegocio)
@@ -162,6 +162,7 @@ form_busqueda.addEventListener("submit", (ev) => {
                                 responseNeg.forEach(neg => {
                                     prod_item.sucursal.negocioFarmacia = neg.data().nombreNegocio;
                                 });
+                                prod_item.setNombreProducto(med_item.nombreComercial, med_item.presentacion, med_item.concentracion);
                             }
                         }
                         
@@ -186,7 +187,7 @@ const armarBarra = (medicamento) => {
     bar.className = "card-header card-custom";
     let bar_name = document.createElement("h2")
     bar_name.classList.add("mb-0");
-    bar_name.innerHTML = `<button class="btn btn-block text-left" id="r-${medicamento.idRegistroSanitario}" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">${medicamento.nombreComercial} &nbsp; ${medicamento.concentracion}</button>`;
+    bar_name.innerHTML = `<button class="btn btn-block text-left" id="r-${medicamento.idRegistroSanitario}" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">${medicamento.nombreComercial} &nbsp; ${medicamento.presentacion} &nbsp; ${medicamento.concentracion}</button>`;
     let bar_mapa = document.createElement("div")
     bar_mapa.classList.add("link-mapa");
     bar_mapa.innerHTML = `<a id="abrir-mapa" href="#">VER MAPA</a>`;
@@ -454,11 +455,24 @@ const renderizarCarrito = () => {
         }, 0);
 
         let miFila = document.createElement("li");
-        miFila.classList.add('list-group-item', 'text-right', 'mx-2');
-        miFila.textContent = `${numeroUnidadesItem} x ${miItem[0].id} - ${miItem[0].precio}€`;
+        miFila.classList.add('list-group-item', 'text-right', 'mx-1', 'carrito-item');
+        
+        let fila_cantidad = document.createElement("span");
+        let fila_nombre = document.createElement("span");
+        let fila_negocio = document.createElement("span");
+        let fila_precio = document.createElement("span");
+        fila_cantidad.innerHTML = `${numeroUnidadesItem} `;
+        fila_nombre.innerHTML = `${miItem[0].nombreProducto} `;
+        fila_negocio.innerHTML = `${miItem[0].sucursal.negocioFarmacia}`;
+        fila_precio.innerHTML = `S/ ${miItem[0].precio}`;
+        
+        miFila.appendChild(fila_cantidad);
+        miFila.appendChild(fila_nombre);
+        miFila.appendChild(fila_negocio);
+        miFila.appendChild(fila_precio);
 
         let miBoton = document.createElement("button");
-        miBoton.classList.add('btn', 'btn-danger', 'mx-5');
+        miBoton.classList.add('btn', 'btn-danger', 'mx-1');
         miBoton.textContent = "X";
         miBoton.style.marginLeft = '1rem';
         miBoton.setAttribute('item', item);
