@@ -9,6 +9,7 @@
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/mapa.css">
+    <link rel="stylesheet" href="css/carrito.css">
 
     <!-- Map API -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
@@ -54,6 +55,7 @@
         </form>
       </div>
     </div>
+
 
     <div class="main">
       <div class="search-filter">
@@ -205,6 +207,7 @@
       </div>
       
 
+      
       <!-- Mapa modal -->
 
       <div id="my-modal-map" class="my-modal">
@@ -221,7 +224,7 @@
                 <div class="item subitem_2">RADIO DE BUSQUEDA: <span id="rad_distance_bus"></span></div>
                 <div class="item subitem_3"></div>
                 <div class="item subitem_4">
-                    <input type="range" min="100" max="2000" id="range-distance" onchange="changeDistance(this.value)">
+                    <input type="range" min="100" max="3000" id="range-distance" onchange="changeDistance(this.value)">
                 </div>
                 <div class="item subitem_5">
                   
@@ -231,21 +234,25 @@
                     
                 </div>
     
-                <div class="item subitem_7">SELECCIONADO:BOTICA MIFARMA</div>
+                <div class="item subitem_7">SELECCIONADO: <span id="negocio_mapa"></span></div>
                 <div class="item subitem_8">PRECIO</div>
                 <div class="item subitem_9 detalle_producto"></div>
                 <div class="item subitem_10">PRECIO ANTERIOR</div>
                 <div class="item subitem_11 detalle_producto"></div>
-                <div class="item subitem_12">DIRECCION</div>
+
+                <div class="item subitem_12">ULTIMA ACTUALIZACION</div>
                 <div class="item subitem_13 detalle_producto"></div>
-                <div class="item subitem_14">DISTANCIA</div>
+
+                <div class="item subitem_14">DIRECCION</div>
                 <div class="item subitem_15 detalle_producto"></div>
-                <div class="item subitem_16">
-                  <button type="button" class="btn btn-primary">
+                <div class="item subitem_16">DISTANCIA</div>
+                <div class="item subitem_17 detalle_producto"></div>
+                <div class="item subitem_18">
+                  <button type="button" class="btn btn-primary" id="agregar_carrito">
                     Agregar a carrito
                   </button>
                 </div>
-                <div class="item subitem_17">
+                <div class="item subitem_19">
                   <button type="button" id="abrirValoracion" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     Valorar
                   </button>
@@ -268,25 +275,29 @@
           
           <div class="modal-content modal-custom">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">SELECCIONADO: <span>BOTICA MIFARMA</span></h5>
+              <h5 class="modal-title" id="exampleModalLabel">SELECCIONADO:&nbsp <span id="negocio_mapa_valoracion"></span></h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body bill-container">
-              <div class="val_item item_title val_subitem_1">PRECIO </div>
-              <div class="val_item val_subitem_2 val_producto">S/. 0.30</div>
-              <div class="val_item item_title val_subitem_3">PRECIO ANTERIOR</div>
-              <div class="val_item val_subitem_4 val_producto">S/. 0.50</div>
-              <div class="val_item item_title val_subitem_5">FARMACEUTICA</div>
-              <div class="val_item val_subitem_6 val_producto">AV. PROCERES DE LA INDEPENDECIA 2301-2301 -A</div>
-              <div class="val_item item_title val_subitem_7">DISTANCIA</div>
-              <div class="val_item val_subitem_8 val_producto">2.5 Km</div>
-              <div class="val_item item_title val_subitem_9">CONFORME</div>
+              <div class="val_item item_title val_subitem_1">Medicamento </div>
+              <div class="val_item val_subitem_2 val_producto"></div>
+              <div class="val_item item_title val_subitem_3">Precio</div>
+              <div class="val_item val_subitem_4 val_producto"></div>
+              <div class="val_item item_title val_subitem_5">¿Cuánto pagaría?</div>
+              <div class="val_item val_subitem_6 val_producto">S/ &nbsp<input id="past_precio" type="text"></div>
+              <div class="val_item item_title val_subitem_7">¿Tiene el producto que busca?</div>
+              <div class="val_item val_subitem_8 val_producto">
+                <span>No&nbsp</span>
+                <input type="range" min="0" max="1" id="have-valoracion">
+                <span>&nbspSí</span>
+              </div>
+              <div class="val_item item_title val_subitem_9">¿Le fue útil?</div>
               <div class="val_item val_subitem_10">
-                <span>Min: 1</span>
+                <span>😢&nbsp</span>
                 <input type="range" min="1" max="10" id="range-valoracion">
-                <span>Min: 10</span>
+                <span>😊&nbsp</span>
               </div>
             </div>
             <div class="modal-footer">
@@ -299,6 +310,22 @@
         </div>
       </div>
 
+      <!-- Carrito -->
+      <div class="carrito-container">
+        <h2>Carrito</h2>
+
+        <ul id="carrito" class="list-group">
+
+        
+        </ul>
+
+
+        <div class="carrito-bottom">
+          <button id="boton-vaciar" class="btn boton-vaciar">Vaciar carrito</button>
+          <p class="total-cotizacion-p">Total: &nbsp S/&nbsp<span id="total-cotizacion">0</span></p>  
+        </div>
+
+      </div>
 
 
     </div>

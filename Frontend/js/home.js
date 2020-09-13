@@ -21,9 +21,19 @@ let mymap;
 let productos_mapa = {elegido: "", lista: []};
 let marker_mapa = [];
 let currentPosition;
+let carrito = [],
+    total = 0;
+
 
 const logout = document.getElementById("logout");
 const columns_filter = document.getElementById("data-filter-items");
+
+
+let agregarCarrito = document.getElementById("agregar_carrito");
+agregarCarrito.addEventListener("click", (ev) => {
+    ev.preventDefault();
+    window.location = 'receta.html';
+});
 
 
 // Modal mapa
@@ -46,16 +56,19 @@ window.onclick = function(ev) {
 
 abrirValoracion.addEventListener("click", ed => {
     let prod_a_valorar = productos_mapa.elegido;
+    let med = document.getElementById("map-title");
     let valoracion_item = document.getElementsByClassName("val_producto");
-    valoracion_item[0].innerHTML = `S/ ${prod_a_valorar.precio}`;
-    valoracion_item[1].innerHTML = `S/ ${prod_a_valorar.precioAnterior}`;
-    valoracion_item[2].innerHTML = `${prod_a_valorar.sucursal.direccionSucursal}`;
-    valoracion_item[3].innerHTML = `${prod_a_valorar.sucursal.calcularDistancia(currentPosition)} Km`;
+    let negocio_valoracion = document.getElementById("negocio_mapa_valoracion");
+    negocio_valoracion.innerHTML = ` ${prod_a_valorar.sucursal.negocioFarmacia}`;
+    valoracion_item[0].innerHTML = `${med.innerHTML}`;
+    valoracion_item[1].innerHTML = `S/ ${prod_a_valorar.precio}`;
+    //valoracion_item[2].innerHTML = `${prod_a_valorar.sucursal.direccionSucursal}`;
+    //valoracion_item[3].innerHTML = `${prod_a_valorar.sucursal.calcularDistancia(currentPosition)} Km`;
 });
 
 realizarValoracion.addEventListener("click", ev => {
     let valorizacion = document.getElementById("range-valoracion");
-    alert(`Usted ha valorizado con ${valorizacion.value} al negocio ${productos_mapa.elegido.sucursal.rucNegocio}`);
+    alert(`Gracias por valorar a ${productos_mapa.elegido.sucursal.negocioFarmacia}`);
 });
 
 
@@ -106,13 +119,27 @@ form_busqueda.addEventListener("submit", (ev) => {
                 card.innerHTML = "";
                 let med_item = new Medicamento(med.data()) 
                 // Busqueda de productos por medicamento
+
+                responsePresen = await database.collection("presentacion_medicamento")
+                .where("idPresentMed", "==", med_item.idPresentMed)
+                .get()
+                if (!responsePresen.empty) {
+                    responsePresen.forEach( present => {
+                        med_item.presentacion = present.data().nombrePresentMed;
+                    });
+                }
+                
+
+
                 responseProd = await database.collection("producto")
                 .where("idMedicamento", "==", med_item.idRegistroSanitario)
                 .get()
 
                 if (!responseProd.empty) {
                     responseProd.forEach( async (prod) => {
+                        console.log(prod.id);
                         let prod_item = new Producto(prod.data());
+                        prod_item.setId(prod.id);
                         responseSuc = await database.collection("sucursales")
                         .where("rucNegocio", "==", prod_item.rucNegocio)
                         .where("idSucursal", "==", prod_item.idSucursal)
@@ -126,7 +153,19 @@ form_busqueda.addEventListener("submit", (ev) => {
                             // Agregar a la tabla
                             let t_body = armarTBody({ ...med_item , ...prod_item});
                             document.getElementById(prod_item.idMedicamento).getElementsByTagName("table")[0].appendChild(t_body);
+
+                            responseNeg = await database.collection("negocio_farmaceutico")
+                            .where("rucNegocio","==", prod_item.rucNegocio)
+                            .get()
+
+                            if(!responseNeg.empty){
+                                responseNeg.forEach(neg => {
+                                    prod_item.sucursal.negocioFarmacia = neg.data().nombreNegocio;
+                                });
+                            }
                         }
+                        
+
                     });
                     card.appendChild(armarBarra(med_item));
                     medicamentos.push(med_item);
@@ -147,7 +186,7 @@ const armarBarra = (medicamento) => {
     bar.className = "card-header card-custom";
     let bar_name = document.createElement("h2")
     bar_name.classList.add("mb-0");
-    bar_name.innerHTML = `<button class="btn btn-block text-left" id="r-${medicamento.idRegistroSanitario}" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">${medicamento.nombreComercial}</button>`;
+    bar_name.innerHTML = `<button class="btn btn-block text-left" id="r-${medicamento.idRegistroSanitario}" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">${medicamento.nombreComercial} &nbsp; ${medicamento.concentracion}</button>`;
     let bar_mapa = document.createElement("div")
     bar_mapa.classList.add("link-mapa");
     bar_mapa.innerHTML = `<a id="abrir-mapa" href="#">VER MAPA</a>`;
@@ -165,13 +204,16 @@ const armarBarra = (medicamento) => {
             marker_mapa.push(marker);
             marker.addEventListener("click", (ev) => {
                 // Cambiar el detalle
+                let mapa_negocio = document.getElementById("negocio_mapa");
+                mapa_negocio.innerHTML = `${prod.sucursal.negocioFarmacia}`;
                 productos_mapa.elegido = prod;
                 let detalle = document.getElementsByClassName("detalle_producto");
                 detalle[0].innerHTML = `S/ ${prod.precio}`;
                 detalle[1].innerHTML = `S/ ${prod.precioAnterior}`;
-                detalle[2].innerHTML = `${prod.sucursal.direccionSucursal}`;
+                detalle[2].innerHTML = `${prod.ultimaActualizacion.split(" ")[0]}`
+                detalle[3].innerHTML = `${prod.sucursal.direccionSucursal}`;
                 let distancia_sucursal = prod.sucursal.calcularDistancia(currentPosition)*1000;
-                detalle[3].innerHTML = ` ${distancia_sucursal<1000 ? distancia_sucursal: distancia_sucursal/1000} ${distancia_sucursal<1000 ? 'metros': 'Km'}`;
+                detalle[4].innerHTML = ` ${distancia_sucursal<1000 ? distancia_sucursal: distancia_sucursal/1000} ${distancia_sucursal<1000 ? 'metros': 'Km'}`;
             });
         });
     });
@@ -205,24 +247,42 @@ const armarCabecera = () => {
         <th scope="col" class="col_4">RUC </th>
         <th scope="col" class="col_5">Precio</th>
         <th scope="col" class="col_6">Direccion</th>
+        <th scope="col" class="col_7">➕</th>
         <!--<th scope="col" class="col_7">Precio</th>-->
         </tr>
     </thead>`;
     return table;
 }
 
-const armarTBody = ({concentracion, fechaVencimiento, idPresentMed, productos}) => {
+const armarTBody = ({concentracion, fechaVencimiento, presentacion, productos}) => {
     let table_body = document.createElement("tbody");
     productos.forEach(data => {
-        table_body.innerHTML += `<tr class="producto_item">
+        let tr_producto = document.createElement("tr");
+        tr_producto.className = "producto_item";
+        tr_producto.innerHTML = `<tr class="producto_item">
             <td  class="col_1">${concentracion}</td>
-            <td  class="col_2">${idPresentMed}</td>
+            <td  class="col_2">${presentacion}</td>
             <td  class="col_3">${fechaVencimiento}</td>
             <td  class="col_4">${data.rucNegocio}</td>
             <td  class="col_5">${data.precio}</td>
             <td  class="col_6">${data.sucursal.direccionSucursal}</td>
             <!--<td  class="col_7">Pendiente</td>-->
         </tr>`;
+        table_body
+
+        let td_addCarrito = document.createElement("td");
+        let btn_addCarrito = document.createElement("button");
+        btn_addCarrito.setAttribute("marcador", data.id );
+        btn_addCarrito.innerHTML = `➕`;
+        btn_addCarrito.addEventListener("click", (ev) => {
+            carrito.push(ev.target.getAttribute('marcador'));
+            calcularTotal();
+            renderizarCarrito();
+        });
+        td_addCarrito.className = "col_7";
+        td_addCarrito.appendChild(btn_addCarrito);
+        tr_producto.appendChild(td_addCarrito);
+        table_body.appendChild(tr_producto);
     });
     return table_body;
 };
@@ -333,8 +393,88 @@ const getLocation = async () => {
         console.log("No position");
     }
 };
-  
-
 getLocation();
 
 
+// Carrito 
+
+let d_carrito = document.getElementById("carrito"),
+    d_total = document.getElementById("total-cotizacion"),
+    d_botonVaciar = document.getElementById("boton-vaciar");
+
+const calcularTotal =  () => {
+    // Limpiamos precio anterior
+    total = 0;
+    // Recorremos el array del carrito
+    for (let item of carrito) {
+        // De cada elemento obtenemos su precio
+        let miItem = [];
+        medicamentos.forEach((med_item) => {
+            let miItem_med = med_item.productos.filter(function(prod_item) {
+                return prod_item.id == item;
+            });
+            miItem = miItem.concat(miItem_med);
+        });
+        total = total + parseFloat(miItem[0].precio);
+    }
+    // Renderizamos el precio en el HTML
+    d_total.textContent = total.toFixed(2);
+};
+
+const borrarItemCarrito = (ev) => {
+    // Obtenemos el producto ID que hay en el boton pulsado
+    let id = ev.target.getAttribute('item');
+    // Borramos todos los productos
+    carrito = carrito.filter(function (carritoId) {
+        return carritoId !== id;
+    });
+    // volvemos a renderizar
+    renderizarCarrito();
+    // Calculamos de nuevo el precio
+    calcularTotal();
+};
+
+
+const renderizarCarrito = () => {
+    d_carrito.innerHTML = "";
+
+    let carrito_sin_duplicado = [...new Set(carrito)];
+
+    carrito_sin_duplicado.forEach((item, indice) => {
+        let miItem = [];
+        medicamentos.forEach((med_item) => {
+            let miItem_med = med_item.productos.filter(function(prod_item) {
+                return prod_item.id == item;
+            });
+            miItem = miItem.concat(miItem_med);
+        });
+
+        let numeroUnidadesItem = carrito.reduce(function (total, itemId) {
+            return itemId === item ? total += 1 : total;
+        }, 0);
+
+        let miFila = document.createElement("li");
+        miFila.classList.add('list-group-item', 'text-right', 'mx-2');
+        miFila.textContent = `${numeroUnidadesItem} x ${miItem[0].id} - ${miItem[0].precio}€`;
+
+        let miBoton = document.createElement("button");
+        miBoton.classList.add('btn', 'btn-danger', 'mx-5');
+        miBoton.textContent = "X";
+        miBoton.style.marginLeft = '1rem';
+        miBoton.setAttribute('item', item);
+        miBoton.addEventListener('click', borrarItemCarrito);
+
+        miFila.appendChild(miBoton);
+        d_carrito.appendChild(miFila);
+    });
+};
+
+
+const vaciarCarrito = () => {
+    // Limpiamos los productos guardados
+    carrito = [];
+    // Renderizamos los cambios
+    renderizarCarrito();
+    calcularTotal();
+}
+d_botonVaciar.addEventListener("click", vaciarCarrito)

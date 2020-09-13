@@ -31,6 +31,7 @@ sign-padding{
 @media(min-width: 1000px){
     .main{
         display: grid;
+        margin-top: 6rem;
         grid-template-columns:  0.7fr 2.5fr 0.5fr;
         box-sizing: border-box;
         padding: 2rem;
@@ -58,6 +59,7 @@ sign-padding{
         display: grid;
         grid-template-areas: "data data"
         "filter columns";
+        margin-top: 6rem;
         gap: 1rem;
         padding: 2rem;
     }

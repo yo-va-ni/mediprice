@@ -8,6 +8,7 @@ class Sucursal{
         this.idRegion = idRegion || "";
         this.idProvincia = idProvincia || "";
         this.idDistrito = idDistrito || "";
+        this.negocioFarmacia = "";
     };
 
     calcularDistancia(coorPersona) 
@@ -30,5 +31,7 @@ class Sucursal{
     {
         return value * Math.PI / 180;
     }
+
+    
 };
 

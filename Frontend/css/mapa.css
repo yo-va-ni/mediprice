@@ -227,20 +227,42 @@
   grid-column-start: 5;
   grid-column-end: 6;
   grid-row-start: 8;
-  grid-row-end: 10;
+  grid-row-end: 9;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #f8f8f8;
 }
 .item:nth-of-type(17){
   grid-column-start: 6;
   grid-column-end: 7;
   grid-row-start: 8;
-  grid-row-end: 10;
+  grid-row-end: 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f8;
+}
+
+.item:nth-of-type(18){
+  grid-column-start: 5;
+  grid-column-end: 6;
+  grid-row-start: 9;
+  grid-row-end: 11;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+.item:nth-of-type(19){
+  grid-column-start: 6;
+  grid-column-end: 7;
+  grid-row-start: 9;
+  grid-row-end: 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 
 .bill-container{

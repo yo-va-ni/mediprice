@@ -6,8 +6,9 @@ class Medicamento{
         this.concentracion = concentracion;
         this.rucLaboratorio = rucLaboratorio;
         this.fechaVencimiento = fechaVencimiento;
-        this.idPresentMed =idPresentMed
+        this.idPresentMed =idPresentMed;
         this.productos = [];
+        this.presentacion = "";
     };
 
 

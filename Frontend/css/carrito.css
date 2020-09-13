@@ -1,0 +1,27 @@
+.carrito-container{
+    width: 550px;
+    height: 270px;
+    background-color: rgba(175, 175, 175, 0.486);
+    position: fixed;
+    top: 6.6rem;
+    right: 1rem;
+    z-index: 100;
+    padding: 0.5rem;
+}
+
+.carrito-bottom{
+    display: flex;
+    justify-content: space-between;
+    padding: 2px;
+    border-top: rgba(88, 88, 88, 0.646) solid 1px;
+}
+
+
+.boton-vaciar{
+    background-color: rgb(226, 158, 69);
+}
+
+#carrito{
+    height: 160px;
+    overflow: auto;
+}
