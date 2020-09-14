@@ -410,6 +410,7 @@ getLocation();
 let d_carrito = document.getElementById("carrito"),
     d_total = document.getElementById("total-cotizacion"),
     d_botonVaciar = document.getElementById("boton-vaciar"),
+    d_botonGuardar = document.getElementById("boton-guardar"),
     d_openCarrito = document.getElementById("open-carrito"),
     d_closeCarrito = document.getElementById("close-carrito");
 
@@ -509,8 +510,54 @@ const vaciarCarrito = () => {
     // Renderizamos los cambios
     renderizarCarrito();
     calcularTotal();
-}
+};
+const guardarCarrito = () => {
+    if (carrito.length != 0) {
+        let time_c = new Date();
+        let user_c = auth.currentUser.email;
+        let cotizacion = {
+            horaCotizacion: time_c.toString(),
+            idCotizacion: `${user_c.split('@')[0]}${time_c.getTime()}`,
+            idUser: user_c,
+            estadoCotizacion: "Realizada",    
+        };
+        database.collection("cotizacion")
+            .doc()
+            .set(cotizacion)
+            .then( () => {
+                let carrito_sin_duplicado = [...new Set(carrito)];
+                //let prod_item 
+
+                let i = 0;
+                carrito_sin_duplicado.forEach( (item, index) => {
+                    let prod_item = buscarProdById(item);
+                    let numeroUnidadesItem = carrito.reduce(function (total, itemId) {
+                        return itemId === item ? total += 1 : total;
+                    }, 0);
+
+                    let detalle_cotizacion = {
+                        cantidadProd: `${numeroUnidadesItem}`,
+                        idCotizacion: `${cotizacion.idCotizacion}`,
+                        idMedicamento: `${prod_item.idMedicamento}`,
+                        idSucursal: `${prod_item.sucursal.idSucursal}`,
+                        rucNegocio: `${prod_item.rucNegocio}`,
+                        itemDetalle : `${i}`,
+                    };
+
+                    database.collection("detalle_cotizacion")
+                        .doc()
+                        .set(detalle_cotizacion)
+                        .then( () => {i += 1})
+                });
+
+                alert("cotizacion ✅");
+            });
+    }
+    
+};
+
 d_botonVaciar.addEventListener("click", vaciarCarrito)
+d_botonGuardar.addEventListener("click", guardarCarrito)
 
 const toggleCarrito = () => {
     let carritoContainer = document.getElementById("carrito-container");
@@ -526,3 +573,18 @@ const toggleCarrito = () => {
     }
     
 };
+
+
+const buscarProdById = (prod_id) => {
+    let prod;
+
+    medicamentos.forEach((med_item) => {
+        med_item.productos.forEach( (prod_item) => {
+            if (prod_item.id == prod_id) {
+                prod = prod_item;
+            } 
+        });
+    });
+    
+    return prod;
+}
